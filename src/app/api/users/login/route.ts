@@ -17,6 +17,7 @@ export async function POST(request: NextRequest) {
         const user = await User.findOne({email});
 
         if(!user) {
+            console.log("User does not exist");
             return NextResponse.json({message: "Invalid credentials"}, {status: 400})
         }
 
@@ -25,6 +26,7 @@ export async function POST(request: NextRequest) {
         const validPassword = await bcryptjs.compare(password, user.password);
 
         if(!validPassword) {
+            console.log("Invalid password");
             return NextResponse.json({message: "Invalid credentials"}, {status: 400})
         }
 
@@ -35,6 +37,8 @@ export async function POST(request: NextRequest) {
         }
 
         const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, {expiresIn: "1h"});
+
+        console.log(token);
 
         const response = NextResponse.json({
             message: "Login successfully",

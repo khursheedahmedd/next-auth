@@ -15,7 +15,7 @@ const Login = () => {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const route = useRouter();
+  const router = useRouter();
 
   const onLogin = async () => {
     try {
@@ -25,12 +25,12 @@ const Login = () => {
 
       setLoading(false);
 
+      console.log(response.data.message);
       console.log("Login successfully", response.data);
 
       toast.success("Login successfully");
 
-      route.push("/profile");
-      // console.log(response.data.message);
+      router.push("/profile");
     } catch (err: any) {
       console.log(err, "Login failed");
       toast.error(err.message);
